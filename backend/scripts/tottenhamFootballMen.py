@@ -60,7 +60,7 @@ def tottenhamFootballMen():
             try:
                 fixtureDesktop = fixture.find_element(By.CLASS_NAME, 'FixtureItem__desktop')
                 fixtureDesktopWrapper = fixtureDesktop.find_element(By.CLASS_NAME, 'wrapper')
-                homeGameTest = fixtureDesktopWrapper.find_element(By.CSS_SELECTOR, '.stadium-tag stadium-tag--home')
+                homeGameTest = fixtureDesktopWrapper.find_element(By.CSS_SELECTOR, '.stadium-tag.stadium-tag--home')
                 fixtureItemKickOffTime = fixtureDesktopWrapper.find_element(By.CLASS_NAME, 'FixtureItem__kickoff')
                 fixtureDay = fixtureItemKickOffTime.find_element(By.TAG_NAME, 'p').text
                 fixtureItemKickOffTimeText = fixtureItemKickOffTime.text

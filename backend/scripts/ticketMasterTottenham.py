@@ -8,7 +8,7 @@ try:
     load_dotenv()
 except:
     pass
-apiKey = os.getenv('TICKETMASTER_API_KEY')
+apiKey = os.getenv('API_KEY')
 
 def isAlreadySameDateAndTime(eventArray, currentEvent):
     for event in eventArray:

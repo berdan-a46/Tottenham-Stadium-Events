@@ -1,7 +1,6 @@
 import requests
 from datetime import datetime
-# from scripts.rugby import rugby
-from rugby import rugby
+from scripts.rugby import rugby
 import os
 
 try:
@@ -75,5 +74,3 @@ def ticketMasterTottenham():
     formattedEvents.sort(key=lambda x: datetime.strptime(f"{x[2]} {x[3]}", "%A %d %B %Y %H:%M"))
     print(formattedEvents)
     return(formattedEvents)
-
-ticketMasterTottenham()

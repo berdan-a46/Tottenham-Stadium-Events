@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5l#dc!9a+xf_pnk_28mt7@_5%9ssjo0#5#!a^!zxugmp5-#619
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tottenham-stadium-events.onrender.com', '127.0.0.1', 'localhost']
 
 
 # Application definition

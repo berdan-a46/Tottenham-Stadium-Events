@@ -1,0 +1,24 @@
+# Exported from Render on 2024-11-17T17:43:18Z
+services:
+- type: web
+  name: Tottenham-Stadium-Events
+  runtime: python
+  repo: https://github.com/berdan-a46/Tottenham-Stadium-Events
+  plan: free
+  envVars:
+  - key: API_KEY
+    sync: false
+  region: oregon
+  rootDir: backend
+  buildCommand: |
+    apt-get update && apt-get install -y wget gnupg && \
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get update && apt-get install -y google-chrome-stable && \
+    google-chrome --version && \
+    pip install -r requirements.txt
+  startCommand: gunicorn backend.wsgi:application
+  envVars:
+  - key: CHROME_BINARY_PATH
+    value: /usr/bin/google-chrome
+version: "1"

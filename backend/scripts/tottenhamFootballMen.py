@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 from datetime import datetime
+import os
 
 def formatDateTime(date, day):
     months = {
@@ -33,6 +34,9 @@ def tottenhamFootballMen():
     finalEvents = []
     options = Options()
     options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.binary_location = os.getenv("CHROME_BINARY_PATH", "/usr/bin/google-chrome")
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get('https://www.tottenhamhotspur.com/fixtures/men/')

@@ -14,7 +14,32 @@ def parseDate(event):
     return datetime.strptime(dateTime, "%A %d %B %Y %H:%M")
 
 def test(request):
-    return HttpResponse("test worked")
+    eventDictionary = {}
+    eventDictionary["rugby"] = rugby()
+    eventDictionary["ticketMasterTottenham"] = ticketMasterTottenham()
+    eventDictionary["tottenhamFootballMen"] = tottenhamFootballMen()
+     
+    minHeap = []
+    result = []
+
+    #Push first event of each event type into the heap to start it off
+    for eventType, eventList in eventDictionary.items():
+        if eventList:
+            firstEvent = eventList[0]
+            firstEventDate = parseDate(firstEvent)
+            heapq.heappush(minHeap, (firstEventDate, firstEvent, 0, eventList))
+
+    while minHeap:
+        currentDate, currentEvent, index, eventList = heapq.heappop(minHeap)
+        result.append(currentEvent)
+
+        
+        if index + 1 < len(eventList):
+            nextEvent = eventList[index + 1]
+            nextEventDate = parseDate(nextEvent)
+            heapq.heappush(minHeap, (nextEventDate, nextEvent, index + 1, eventList))
+    
+    return HttpResponse(json.dumps(result))
 
 
 def index(request):

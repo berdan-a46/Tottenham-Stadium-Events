@@ -38,13 +38,16 @@ def tottenhamFootballMen():
     options.add_argument("--disable-dev-shm-usage")
     options.binary_location = os.getenv("CHROME_BINARY_PATH", "/usr/bin/google-chrome")
 
+    print("Setting up WebDriver")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    print("Navigating to the website")
     driver.get('https://www.tottenhamhotspur.com/fixtures/men/')
     
     wait = WebDriverWait(driver, 10)
     wait.until(EC.element_to_be_clickable((By.ID,'onetrust-accept-btn-handler'))).click()
 
     fixtureGroups = wait.until(EC.visibility_of_all_elements_located((By.CLASS_NAME,"FixtureGroup")))
+    print("fitureGroups fetched")
     for group in fixtureGroups:
         fixtureItems = group.find_elements(By.CLASS_NAME, "FixtureItem ")
         for fixture in fixtureItems:
@@ -75,6 +78,7 @@ def tottenhamFootballMen():
             except Exception as e:
                 pass
 
+    print("ITS DONE for tottenhamfootbalmen")
     driver.quit()
     return finalEvents
 

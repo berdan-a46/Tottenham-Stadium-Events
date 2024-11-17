@@ -12,7 +12,10 @@ def parseDate(event):
     time = event[3] 
     dateTime = f"{date} {time}"
     return datetime.strptime(dateTime, "%A %d %B %Y %H:%M")
-    
+
+def test(request):
+    return HttpResponse("yes")
+
 
 def index(request):
     eventDictionary = {}

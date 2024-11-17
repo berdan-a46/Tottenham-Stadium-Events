@@ -14,7 +14,7 @@ def parseDate(event):
     return datetime.strptime(dateTime, "%A %d %B %Y %H:%M")
 
 def test(request):
-    return HttpResponse("yes")
+    return HttpResponse("test worked")
 
 
 def index(request):

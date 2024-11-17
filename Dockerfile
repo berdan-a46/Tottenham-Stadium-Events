@@ -3,27 +3,15 @@ FROM python:3.9-slim
 
 # Install required system dependencies
 RUN apt-get update && apt-get install -y \
-    wget \
-    gnupg \
-    unzip \
-    curl \
-    libnss3 \
-    libgconf-2-4 \
-    libxi6 \
-    libxrandr2 \
-    libxss1 \
-    libxcomposite1 \
-    libasound2 \
-    libpangocairo-1.0-0 \
-    libatk1.0-0 \
-    libgtk-3-0 \
-    libcups2 \
-    google-chrome-stable
+    software-properties-common apt-transport-https \
+    wget gnupg unzip curl libnss3 libgconf-2-4 libxi6 libxrandr2 \
+    libxss1 libxcomposite1 libasound2 libpangocairo-1.0-0 libatk1.0-0 \
+    libgtk-3-0 libcups2
 
 # Install Google Chrome
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
-    apt-get update && apt-get install -y google-chrome-stable && \
+    apt-get update && apt-get install -y google-chrome-stable --no-install-recommends && \
     apt-get clean
 
 # Install Chromedriver
@@ -36,7 +24,7 @@ RUN CHROMEDRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/L
 ENV GOOGLE_CHROME_BIN=/usr/bin/google-chrome
 ENV CHROMEDRIVER_PATH=/usr/local/bin/chromedriver
 
-# Set the working directory (adjusted for your folder structure)
+# Set the working directory
 WORKDIR /app/backend
 
 # Copy application code into the container

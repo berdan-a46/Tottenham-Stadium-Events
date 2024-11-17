@@ -2,12 +2,11 @@ services:
 - type: web
   name: Tottenham-Stadium-Events
   plan: free
+  runtime: docker  # Specify that we are using Docker
+  dockerfilePath: ./Dockerfile  # Path to the Dockerfile
   envVars:
   - key: API_KEY
     sync: false
   - key: CHROME_BINARY_PATH
     value: /usr/bin/google-chrome
-  dockerfilePath: ./Dockerfile
-  buildCommand: ""  # Docker handles the build
-  startCommand: ""  # Docker handles the start
 version: "1"

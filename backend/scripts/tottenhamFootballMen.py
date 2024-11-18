@@ -9,6 +9,15 @@ import time
 from datetime import datetime
 import os
 
+print("Server time:", datetime.now())
+print("Server local time:", time.tzname)
+
+os.environ['TZ'] = 'Europe/London'
+time.tzset()
+
+print("2 Server time:", datetime.now())
+print("2 Server local time:", time.tzname)
+
 def formatDateTime(date, day):
     months = {
         "JAN": 1, "FEB": 2, "MAR": 3, "APR": 4, "MAY": 5, "JUN": 6,

@@ -8,7 +8,7 @@ from scripts.ticketMasterTottenham import ticketMasterTottenham
 from scripts.tottenhamFootballMen import tottenhamFootballMen
 
 def testMens(request):
-    results = ticketMasterTottenham
+    results = tottenhamFootballMen()
     return HttpResponse(results)
 
 

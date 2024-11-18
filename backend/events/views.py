@@ -7,7 +7,7 @@ from scripts.rugby import rugby
 from scripts.ticketMasterTottenham import ticketMasterTottenham
 from scripts.tottenhamFootballMen import tottenhamFootballMen
 
-def testMensFixtures(request):
+def testMens(request):
     results = ticketMasterTottenham
     return HttpResponse(results)
 

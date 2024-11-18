@@ -7,6 +7,11 @@ from scripts.rugby import rugby
 from scripts.ticketMasterTottenham import ticketMasterTottenham
 from scripts.tottenhamFootballMen import tottenhamFootballMen
 
+def testMensFixtures(request):
+    results = ticketMasterTottenham
+    return HttpResponse(results)
+
+
 def parseDate(event):
     date = event[2]  
     time = event[3] 

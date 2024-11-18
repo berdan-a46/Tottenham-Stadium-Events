@@ -42,6 +42,7 @@ def tottenhamFootballMen():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     print("Navigating to the website")
     driver.get('https://www.tottenhamhotspur.com/fixtures/men/')
+    driver.refresh()
     
     wait = WebDriverWait(driver, 10)
     wait.until(EC.element_to_be_clickable((By.ID,'onetrust-accept-btn-handler'))).click()

@@ -7,6 +7,7 @@ from scripts.rugby import rugby
 from scripts.ticketMasterTottenham import ticketMasterTottenham
 from scripts.tottenhamFootballMen import tottenhamFootballMen
 
+#/testMensFixtures
 def testMens(request):
     results = tottenhamFootballMen()
     return HttpResponse(results)
@@ -17,6 +18,7 @@ def parseDate(event):
     time = event[3] 
     dateTime = f"{date} {time}"
     return datetime.strptime(dateTime, "%A %d %B %Y %H:%M")
+
 
 def test(request):
     eventDictionary = {}

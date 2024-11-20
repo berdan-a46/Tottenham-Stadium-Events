@@ -14,7 +14,7 @@ function App() {
 
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/events/`)
+    axios.get(`https://tottenham-stadium-events.onrender.com/events/test`)
       .then(response => {
         setEvents(response.data);
         setLoaded(true);

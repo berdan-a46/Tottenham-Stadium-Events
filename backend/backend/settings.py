@@ -56,6 +56,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     'http://192.168.56.1:3000',
+    'https://tottenham-stadium-events-website.onrender.com/',
 ]
 
 ROOT_URLCONF = 'backend.urls'

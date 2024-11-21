@@ -57,11 +57,14 @@ def index(request):
         ("tottenhamFootballMen", tottenhamFootballMen),
     ]
 
-    #Run the scripts above concurrently
+    print("start")
+
+    # Run the scripts above concurrently
     with ThreadPoolExecutor() as executor:
         results = []
 
         for eventName, func in events:
+            print("submit thread")
             thread = executor.submit(func)
             results.append((eventName, thread))
 
@@ -69,22 +72,25 @@ def index(request):
             try:
                 eventDictionary[eventName] = thread.result()
             except Exception as e:
-                print(f"Error processing {eventName}: {e}") 
-                
+                print(f"Error processing {eventName}: {e}")
+
+    print("Done concurrent part")
+    
     minHeap = []
     result = []
 
+    print("Start sorting")
     #Push first event of each event type into the heap to start it off
     for eventType, eventList in eventDictionary.items():
         if eventList:
             firstEvent = eventList[0]
+            print("firstEvent",firstEvent) 
             firstEventDate = parseDate(firstEvent)
             heapq.heappush(minHeap, (firstEventDate, firstEvent, 0, eventList))
-
+    
     while minHeap:
         currentDate, currentEvent, index, eventList = heapq.heappop(minHeap)
         result.append(currentEvent)
-
         
         if index + 1 < len(eventList):
             nextEvent = eventList[index + 1]
@@ -92,4 +98,5 @@ def index(request):
             heapq.heappush(minHeap, (nextEventDate, nextEvent, index + 1, eventList))
     
     return HttpResponse(json.dumps(result))
+
 

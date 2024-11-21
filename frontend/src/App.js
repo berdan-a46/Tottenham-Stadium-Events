@@ -10,7 +10,7 @@ function App() {
   const [isRefreshDisabled, setIsRefreshDisabled] = useState(true);
   const [error, setError] = useState(false)
 
-  const REFRESH_DELAY = 60000;
+  const REFRESH_DELAY = 600000;
 
 
   useEffect(() => {

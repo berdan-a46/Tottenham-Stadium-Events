@@ -6,12 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 from scripts.rugby import rugby
 from scripts.ticketMasterTottenham import ticketMasterTottenham
 from scripts.tottenhamFootballMen import tottenhamFootballMen
-
-#/testMensFixtures
-def testMens(request):
-    results = tottenhamFootballMen()
-    return HttpResponse(results)
-
+from scripts.rugbyAndTMEvents import rugbyAndTMEvents
 
 def parseDate(event):
     date = event[2]  
@@ -20,10 +15,9 @@ def parseDate(event):
     return datetime.strptime(dateTime, "%A %d %B %Y %H:%M")
 
 
-def test(request):
+def index(request):
     eventDictionary = {}
-    eventDictionary["rugby"] = rugby()
-    eventDictionary["ticketMasterTottenham"] = ticketMasterTottenham()
+    eventDictionary["rugby"], eventDictionary["ticketMasterTottenham"] = rugbyAndTMEvents()
     eventDictionary["tottenhamFootballMen"] = tottenhamFootballMen()
      
     minHeap = []
@@ -49,15 +43,13 @@ def test(request):
     return HttpResponse(json.dumps(result))
 
 
-def index(request):
+def concurrent(request):
     eventDictionary = {}
     events = [
         ("rugby", rugby),
         ("ticketMasterTottenham", ticketMasterTottenham),
         ("tottenhamFootballMen", tottenhamFootballMen),
     ]
-
-    print("start")
 
     # Run the scripts above concurrently
     with ThreadPoolExecutor() as executor:
@@ -73,18 +65,14 @@ def index(request):
                 eventDictionary[eventName] = thread.result()
             except Exception as e:
                 print(f"Error processing {eventName}: {e}")
-
-    print("Done concurrent part")
     
     minHeap = []
     result = []
 
-    print("Start sorting")
     #Push first event of each event type into the heap to start it off
     for eventType, eventList in eventDictionary.items():
         if eventList:
             firstEvent = eventList[0]
-            print("firstEvent",firstEvent) 
             firstEventDate = parseDate(firstEvent)
             heapq.heappush(minHeap, (firstEventDate, firstEvent, 0, eventList))
     

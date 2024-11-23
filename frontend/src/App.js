@@ -13,8 +13,8 @@ function App() {
   const REFRESH_DELAY = 300000;
 
   useEffect(() => {
-    fetchEvents(); // Fetch data once on component mount
-  }, []); // Only run once
+    fetchEvents();
+  }, []);
 
   const fetchEvents = () => {
     setLoaded(false);
@@ -23,12 +23,12 @@ function App() {
       .then((response) => {
         setEvents(response.data);
         setLoaded(true);
-        setLastTimeRefreshed(Date.now()); // Update last refresh time
+        setLastTimeRefreshed(Date.now());
       })
       .catch((error) => {
         console.error("Error fetching events:", error);
         setError(error);
-        setLoaded(true); // Mark loading complete even if it failed
+        setLoaded(true);
       });
   };
 
@@ -47,7 +47,7 @@ function App() {
   }, [lastTimeRefreshed, loaded]);
 
   const handleClick = () => {
-    fetchEvents(); // Explicitly fetch data
+    fetchEvents();
   };
 
   return (

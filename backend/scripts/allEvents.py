@@ -32,7 +32,6 @@ def formatEvents(events):
 def allEvents():
     footballEvents, rugbyEvents = rugbyAndFootball()
 
-    print("Getting url")
     url = f'https://app.ticketmaster.com/discovery/v2/events.json?venueId=KovZ9177OxV&apikey={apiKey}'
     response = requests.get(url)
     data = response.json()
@@ -47,7 +46,6 @@ def allEvents():
         print(data)
 
 
-    print("formatting events")
     formattedEvents = formatEvents(acceptedEvents)
 
     #Filter out rugby events from the accepted events
@@ -75,5 +73,4 @@ def allEvents():
             counter +=1
 
     formattedEvents.sort(key=lambda x: datetime.strptime(f"{x[2]} {x[3]}", "%A %d %B %Y %H:%M"))
-    print("FORMATTED EVENTS:",formattedEvents)
     return footballEvents, rugbyEvents, formattedEvents

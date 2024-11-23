@@ -72,5 +72,4 @@ def ticketMasterTottenham():
             counter +=1
 
     formattedEvents.sort(key=lambda x: datetime.strptime(f"{x[2]} {x[3]}", "%A %d %B %Y %H:%M"))
-    print("FORMATTED EVENTS:",formattedEvents)
     return(formattedEvents)

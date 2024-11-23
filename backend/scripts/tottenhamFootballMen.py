@@ -9,14 +9,8 @@ import time
 from datetime import datetime
 import os
 
-print("Server time:", datetime.now())
-print("Server local time:", time.tzname)
-
 os.environ['TZ'] = 'Europe/London'
 time.tzset()
-
-print("2 Server time:", datetime.now())
-print("2 Server local time:", time.tzname)
 
 def formatDateTime(date, day):
     months = {
@@ -35,7 +29,6 @@ def formatDateTime(date, day):
     
     except Exception as e:
         print(f"Error in format_date_time: {e}")
-        print(f"Received date_str: {date}, day_str: {day}")
         return None, None
 
 
@@ -47,9 +40,7 @@ def tottenhamFootballMen():
     options.add_argument("--disable-dev-shm-usage")
     options.binary_location = os.getenv("CHROME_BINARY_PATH", "/usr/bin/google-chrome")
 
-    print("Setting up WebDriver")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    print("Navigating to the website")
     driver.get('https://www.tottenhamhotspur.com/fixtures/men/')
     driver.refresh()
     
@@ -57,7 +48,6 @@ def tottenhamFootballMen():
     wait.until(EC.element_to_be_clickable((By.ID,'onetrust-accept-btn-handler'))).click()
 
     fixtureGroups = wait.until(EC.visibility_of_all_elements_located((By.CLASS_NAME,"FixtureGroup")))
-    print("fitureGroups fetched")
     for group in fixtureGroups:
         fixtureItems = group.find_elements(By.CLASS_NAME, "FixtureItem ")
         for fixture in fixtureItems:
@@ -87,7 +77,6 @@ def tottenhamFootballMen():
             except Exception as e:
                 pass
 
-    print("ITS DONE for tottenhamfootbalmen")
     driver.quit()
     return finalEvents
 

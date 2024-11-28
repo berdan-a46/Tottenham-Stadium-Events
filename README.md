@@ -41,3 +41,14 @@ This project adheres to ethical web scraping guidelines:
 
 ### User Impact
 This project bridges a gap for users who might struggle with language or technology barriers, providing them with an easy way to access essential information. It demonstrates problem-solving, resourcefulness, and a commitment to creating user-focused solutions.
+
+# Screenshots
+### User is unable to refresh
+To operate within rate limits, the user is forced to wait until the next possible refresh time is reached.
+
+![Screenshot_46](https://github.com/user-attachments/assets/1d4aa510-f0ed-4c2b-8f80-bac27bfccf6d)
+
+### User is able to refresh
+Now that the time has been reached, user is able to refresh if they wish to.
+
+![Screenshot_47](https://github.com/user-attachments/assets/8a1e628e-6c02-4e46-ae9a-9fe2aacb8c4f)

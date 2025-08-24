@@ -1,12 +1,11 @@
 # Dockerfile
 
-# Use Debian bookworm to avoid missing/renamed packages on trixie
 FROM python:3.10-slim-bookworm
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Install OS deps + Chromium + Chromedriver + required libraries
+# OS deps + Chromium + Chromedriver for Selenium
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl ca-certificates unzip gnupg wget \
     chromium chromium-driver \
@@ -19,15 +18,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV CHROME_BIN=/usr/bin/chromium
 ENV CHROMEDRIVER=/usr/bin/chromedriver
 
-WORKDIR /app
+# --- IMPORTANT: point WORKDIR at the folder that contains manage.py ---
+WORKDIR /app/backend
 
-# Install Python deps first for better layer caching
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python deps first (path points to backend/requirements.txt)
+COPY backend/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
-# Copy the rest of the app
-COPY . .
+# Copy ONLY the backend code into the image (keeps it smaller)
+COPY backend/ /app/backend/
 
-# Run with Gunicorn on the port Render provides
-# (Render injects $PORT env var)
+# If your Django project package is the inner "backend" (i.e. backend/backend/wsgi.py),
+# this import path is correct from WORKDIR /app/backend:
 CMD exec gunicorn backend.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 3

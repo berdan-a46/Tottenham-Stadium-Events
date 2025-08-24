@@ -1,5 +1,4 @@
 # Dockerfile
-
 FROM python:3.10-slim-bookworm
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -14,20 +13,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-liberation libdrm2 libxkbcommon0 libgbm1 libwayland-client0 libxshmfence1 \
  && rm -rf /var/lib/apt/lists/*
 
-# Make paths visible to Selenium
 ENV CHROME_BIN=/usr/bin/chromium
 ENV CHROMEDRIVER=/usr/bin/chromedriver
 
-# --- IMPORTANT: point WORKDIR at the folder that contains manage.py ---
+# Work where manage.py lives
 WORKDIR /app/backend
 
-# Install Python deps first (path points to backend/requirements.txt)
-COPY backend/requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
-
-# Copy ONLY the backend code into the image (keeps it smaller)
+# 👇 Copy the backend first so the file definitely exists in the image
 COPY backend/ /app/backend/
 
-# If your Django project package is the inner "backend" (i.e. backend/backend/wsgi.py),
-# this import path is correct from WORKDIR /app/backend:
+# 👇 Install from the file inside backend (adjust name if different)
+RUN pip install --no-cache-dir -r /app/backend/requirements.txt
+
+# Start Gunicorn; inner project package is "backend" (backend/backend/wsgi.py)
 CMD exec gunicorn backend.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 3

@@ -22,7 +22,7 @@ def formatDateTime(date, day):
         dayNumber, monthStr = dayNumberAndMonth.split()
         dayNumber = int(dayNumber)
         month = months[monthStr]
-        year = 2024 if month >= 6 else 2025
+        year = 2025 if month >= 6 else 2026
         formattedDate = f"{day} {dayNumber:02d} {datetime(year, month, dayNumber).strftime('%B')} {year}"
         formattedTime = time
         return formattedDate, formattedTime
@@ -79,4 +79,3 @@ def tottenhamFootballMen():
 
     driver.quit()
     return finalEvents
-

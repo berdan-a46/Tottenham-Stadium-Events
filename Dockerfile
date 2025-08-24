@@ -40,4 +40,12 @@ RUN set -eux; \
 WORKDIR /app/backend
 
 # Start Django (project package is inner "backend" -> backend/backend/wsgi.py)
-CMD exec gunicorn backend.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 3
+# was:
+# CMD exec gunicorn backend.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 3
+
+# use 1 worker (so you don’t launch multiple Chromes) and a longer timeout:
+CMD exec gunicorn backend.wsgi:application \
+    --bind 0.0.0.0:${PORT:-8000} \
+    --workers 1 \
+    --threads 1 \
+    --timeout 180

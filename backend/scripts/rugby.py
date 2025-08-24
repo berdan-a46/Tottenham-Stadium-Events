@@ -51,9 +51,9 @@ def rugby() -> List[list[Any]]:
     try:
         driver = _make_driver()
 
-        # TODO: replace with your real URL + selectors
-        url = "https://example.com/rugby"
-        driver.get(url)
+        driver.get('https://www.tottenhamhotspurstadium.com/whats-on/events-calendar/')
+
+
 
         wait = WebDriverWait(driver, 20)
         wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".event-card, .event-item")))
